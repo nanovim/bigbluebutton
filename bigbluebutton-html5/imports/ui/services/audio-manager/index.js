@@ -44,6 +44,8 @@ class AudioManager {
       outputDeviceId: null,
       muteHandle: null,
       autoplayBlocked: false,
+      audioContext: null,
+      audioDestination: null
     });
 
     this.useKurento = Meteor.settings.public.kurento.enableListenOnly;
@@ -132,11 +134,14 @@ class AudioManager {
   }
 
   joinScreenShareStream(stream){
-    let audioContext = new AudioContext();
-    let destination = audioContext.createMediaStreamDestination();
+
     //if listen only return empty destination stream
     //the user said she only wants to listen not sending anything
-    if(!this.isListenOnly){
+    if(this.audioContext == null){
+      let audioContext = new AudioContext();
+      this.audioContext = audioContext;
+      let destination = audioContext.createMediaStreamDestination();
+      this.audioDestination = destination;
       let shareGain = audioContext.createGain();
       let micGain = audioContext.createGain();
       let shareNode = audioContext.createMediaStreamSource(stream)
@@ -145,14 +150,20 @@ class AudioManager {
       shareNode.connect(shareGain)
       micGain.connect(destination)
       shareGain.connect(destination)
+      const callOptions = {
+        isListenOnly: false,
+        extension: null,
+        inputStream: destination.stream,
+      };
+      return this.bridge.joinAudio(callOptions, this.callStateCallback.bind(this));
+    }else{
+      let shareNode = audioContext.createMediaStreamSource(stream)
+      let shareGain = this.audioContext.createGain();
+      shareNode.connect(shareGain)
+      shareGain.connect(this.audioDestination)
     }
 
-    const callOptions = {
-      isListenOnly: false,
-      extension: null,
-      inputStream: destination.stream,
-    };
-    return this.bridge.joinAudio(callOptions, this.callStateCallback.bind(this));
+
   }
 
   joinEchoTest() {
