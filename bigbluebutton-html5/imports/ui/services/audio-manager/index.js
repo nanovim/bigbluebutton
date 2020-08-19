@@ -157,7 +157,7 @@ class AudioManager {
       };
       return this.bridge.joinAudio(callOptions, this.callStateCallback.bind(this));
     }else{
-      let shareNode = audioContext.createMediaStreamSource(stream)
+      let shareNode = this.audioContext.createMediaStreamSource(stream)
       let shareGain = this.audioContext.createGain();
       shareNode.connect(shareGain)
       shareGain.connect(this.audioDestination)
