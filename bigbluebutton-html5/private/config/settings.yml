@@ -85,7 +85,7 @@ public:
     enableNetworkMonitoring: false
     packetLostThreshold: 10
   kurento:
-    wsUrl: HOST
+    wsUrl: wss://meet.innovationcampus.net/bbb-webrtc-sfu
     # Valid for video-provider. Time (ms) before its WS connection times out
     # and tries to reconnect.
     wsConnectionTimeout: 4000
@@ -110,7 +110,7 @@ public:
             max: 2560
           height:
             max: 1600
-        audio: false
+        audio: true
       chromeScreenshareSources:
         - window
         - screen
