@@ -51,21 +51,22 @@ const mapGroupMessage = (message) => {
           color: 1, role: 1, name: 1, connectionStatus: 1,
         },
       });
-    const {
-      color,
-      role,
-      name,
-      connectionStatus,
-    } = sender;
+    if(sender !== undefined){
+      const {
+        color,
+        role,
+        name,
+        connectionStatus,
+      } = sender;
 
-    const mappedSender = {
-      color,
-      isModerator: role === ROLE_MODERATOR,
-      name,
-      isOnline: connectionStatus === CONNECTION_STATUS_ONLINE,
-    };
-
-    mappedMessage.sender = mappedSender;
+      const mappedSender = {
+        color,
+        isModerator: role === ROLE_MODERATOR,
+        name,
+        isOnline: connectionStatus === CONNECTION_STATUS_ONLINE,
+      };
+      mappedMessage.sender = mappedSender;
+    }
   }
 
   return mappedMessage;
