@@ -118,6 +118,14 @@ class ActionsBar extends PureComponent {
           }}
           />
           <Button
+            icon='globe'
+            color='primary'
+            label='Activate Translation'
+            circle
+            hideLabel
+            size="lg"
+          />
+          <Button
             className={cx(styles.button, autoArrangeLayout || styles.btn)}
             icon={autoArrangeLayout ? 'lock' : 'unlock'}
             color={autoArrangeLayout ? 'primary' : 'default'}
