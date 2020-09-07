@@ -564,7 +564,8 @@ class AudioManager {
   }
 
   openTranslationChannel(){
-    console.log("translation clicked")
+    this.exitAudio()
+    this.bridge.joinTranslationChannel(this.inputStream);
   }
 
 }
