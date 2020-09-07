@@ -11,6 +11,7 @@ import Button from '/imports/ui/components/button/component';
 import Storage from '/imports/ui/services/storage/session';
 import { ACTIONSBAR_HEIGHT } from '/imports/ui/components/layout/layout-manager';
 import { withLayoutConsumer } from '/imports/ui/components/layout/context';
+import AudioManager from '/imports/ui/services/audio-manager';
 
 class ActionsBar extends PureComponent {
   constructor(props) {
@@ -38,7 +39,9 @@ class ActionsBar extends PureComponent {
     );
     window.dispatchEvent(new Event('autoArrangeChanged'));
   }
-
+  activateTranslation(){
+    AudioManager.openTranslationChannel();
+  }
   render() {
     const {
       amIPresenter,
@@ -124,6 +127,7 @@ class ActionsBar extends PureComponent {
             circle
             hideLabel
             size="lg"
+            onClick={this.activateTranslation}
           />
           <Button
             className={cx(styles.button, autoArrangeLayout || styles.btn)}

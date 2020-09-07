@@ -562,6 +562,11 @@ class AudioManager {
       this.autoplayBlocked = true;
     }
   }
+
+  openTranslationChannel(){
+    console.log("translation clicked")
+  }
+
 }
 
 const audioManager = new AudioManager();
